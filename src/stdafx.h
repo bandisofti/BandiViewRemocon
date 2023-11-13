@@ -69,5 +69,5 @@ extern CComModule _Module;
 #pragma warning(disable: 26457)		// (void) should not be used to ignore return values, use 'std::ignore =' instead (es.48).
 
 
-#pragma warning(disable: 26826)
+#pragma warning(disable: 26826 26492)
 

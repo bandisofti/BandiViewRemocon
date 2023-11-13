@@ -78,7 +78,7 @@ DWORD	SendStringCommand2BandiView(HWND hWnd, LPCWSTR commandString)
 	cds.dwData = WMCOPYDATAMAGIC;
 	cds.cbData = (lstrlen(commandString) + 1) * sizeof(WCHAR);
 	cds.lpData = (PVOID)commandString;
-	const DWORD ret = SendMessage(hWnd, WM_COPYDATA, 0, (LPARAM)&cds);
+	const DWORD ret = (DWORD)SendMessage(hWnd, WM_COPYDATA, 0, (LPARAM)&cds);
 	return ret;
 }
 
