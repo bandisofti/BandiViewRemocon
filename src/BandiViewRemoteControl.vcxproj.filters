@@ -11,6 +11,9 @@
     <Filter Include="stdafx">
       <UniqueIdentifier>{86b52607-58b2-40a9-9034-3671d241aa55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{86ad5d6d-1f3e-46ad-8de4-edcd443484e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -22,6 +25,15 @@
     <ClInclude Include="MainDlg.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="RemoteControlUtils.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\XRichEditCtrl2.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -31,6 +43,15 @@
       <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="MainDlg.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoteControlUtils.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\XRichEditCtrl2.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
       <Filter>main</Filter>
     </ClCompile>
   </ItemGroup>

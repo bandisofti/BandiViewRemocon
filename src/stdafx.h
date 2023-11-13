@@ -11,6 +11,7 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <windowsx.h>
 
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS      // some CString constructors will be explicit
 #include <atlbase.h>
@@ -67,4 +68,6 @@ extern CComModule _Module;
 #pragma warning(disable: 26818)		// Switch statement does not cover all cases. Consider adding a 'default' label (es.79). 
 #pragma warning(disable: 26457)		// (void) should not be used to ignore return values, use 'std::ignore =' instead (es.48).
 
+
+#pragma warning(disable: 26826)
 
