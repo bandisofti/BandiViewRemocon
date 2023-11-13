@@ -1,6 +1,10 @@
 ﻿#include "stdafx.h"
 #include "MainDlg.h"
 #include "resource.h"
+#include "RemoteControlUtils.h"
+
+#pragma warning(disable: 26826 26461)
+
 
 BEGIN_OBJECT_MAP(ObjectMap)
 END_OBJECT_MAP()
@@ -19,7 +23,7 @@ int Main()
 	return 0;
 }
 
-int APIENTRY _tWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ LPTSTR /*lpCmdLine*/, _In_ int /*nCmdShow*/)
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInstance*/, _In_ LPWSTR lpCmdLine, _In_ int /*nCmdShow*/)
 {
 #ifdef _DEBUG
 	//_CrtSetBreakAlloc(1081);
@@ -29,7 +33,24 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE /*hPrevInsta
 	if (!InitInstance (hInstance)) 
 		return FALSE;
 
-	const int ret = Main();
+	int ret = 0;
+
+	if (lpCmdLine && lstrlen(lpCmdLine))
+	{
+		HWND hWnd = FindBandiViewWnd();
+		if (hWnd == nullptr)
+		{
+			ret = -1;
+		}
+		else
+		{
+			ret = (int)SendStringCommand2BandiView(hWnd, lpCmdLine);
+		}
+	}
+	else
+	{
+		ret = Main();
+	}
 
 	ExitInstance();
 
