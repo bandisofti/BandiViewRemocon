@@ -95,6 +95,8 @@ set SLN=src\BandiViewRemoteControl.sln
 )
 
 
+call sign2023.bat bin\BandiViewRemoteControl.x64.exe
+
 
 
 @if "%1" neq "auto" pause
