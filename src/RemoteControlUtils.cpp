@@ -31,6 +31,7 @@ const Command* GetSampleCommands()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///         
 ///         string based commands
+///				see https://www.bandisoft.com/bandiview/help/command-line-parameter/ 
 ///         
 /// @date   Mon Nov 13 15:44:16 2023
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +39,12 @@ const Command* GetSampleCommands()
 StringCommand	g_stringCommands[] =
 {
 	{L"/nop", L""},									// do nothing
-	{L"/open", L"-r %HOMEPATH%\\Desktop"},			// open the folder or files			ex) /open c:\test.jpg
+	{L"/open", L"-r %HOMEPATH%\\Desktop"},			// open the folder or files			
+													//	eg) /open c:\test.jpg
+
+	{L"/move2page", L"10"},							// move to the page (zero based)	
+													//  eg)	/move2page 0		- move to the first page
+													//		/move2page 10		- move to 11st page
 };
 
 
