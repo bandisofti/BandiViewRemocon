@@ -17,6 +17,8 @@ BEGIN_MSG_MAP(CMainDlg)
 	MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
 	COMMAND_HANDLER(IDC_BTN_FIND, BN_CLICKED, OnBnClickedBtnFind)
 	COMMAND_HANDLER(IDC_BTN_FIND2, BN_CLICKED, OnBnClickedBtnFind2)
+	COMMAND_HANDLER(IDC_CB_SCMD, CBN_SELCHANGE, OnCbnSelchangeCbScmd)
+	COMMAND_HANDLER(IDC_BTN_FIND3, BN_CLICKED, OnBnClickedBtnFind3)
 END_MSG_MAP()
 
 
@@ -24,7 +26,8 @@ private :
 	void			InitSampleCommands();
 	void			Message(_Printf_format_string_ LPCTSTR szMsg, ...);
 	XRichEditCtrl2	m_message;
-	HWND			m_cbComand = nullptr;
+	HWND			m_cbComand = nullptr;		// CMD_XX 
+	HWND			m_cbStrCmd = nullptr;		// string base commands
 
 
 private :
@@ -39,5 +42,7 @@ private :
 public:
 	LRESULT OnBnClickedBtnFind(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnBnClickedBtnFind2(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnCbnSelchangeCbScmd(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnBnClickedBtnFind3(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 };
 

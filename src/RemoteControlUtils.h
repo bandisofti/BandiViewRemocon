@@ -15,18 +15,42 @@
 
 
 #define APP_CLASS_NAME		L"BandiViewClass"
+#define WMCOPYDATAMAGIC		0x20220905
 
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         CMD_XX commands
+///         
+/// @date   Mon Nov 13 15:44:27 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
 struct Command
 {
 	LPCWSTR		str;
 	DWORD		cmd;
 };
-
-
 size_t			GetSampleCommandsSize();
-const Command* GetSampleCommands();
+const Command*	GetSampleCommands();
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         string based commands
+///         
+/// @date   Mon Nov 13 15:44:16 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
+struct StringCommand
+{
+	LPCWSTR		str;
+	LPCWSTR		sampleParam;
+
+};
+size_t					GetStringCommandsSize();
+const StringCommand*	GetStringCommands();
+
+
 
 
 
@@ -34,4 +58,6 @@ const Command* GetSampleCommands();
 
 HWND	FindBandiViewWnd();
 
+
+DWORD	SendStringCommand2BandiView(HWND hWnd, LPCWSTR commandString);
 

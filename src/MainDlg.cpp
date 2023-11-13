@@ -60,13 +60,28 @@ LRESULT CMainDlg::OnBnClickedCancel(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*h
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainDlg::InitSampleCommands()
 {
-	m_cbComand = GetDlgItem(IDC_CB_CMD);
+	// CMD_XX commands
+	{
+		m_cbComand = GetDlgItem(IDC_CB_CMD);
 
-	const size_t count = GetSampleCommandsSize();
-	const Command* cmds = GetSampleCommands();
-	for (size_t i = 0; i < count; i++)
-		ComboBox_AddString(m_cbComand, cmds[i].str);
-	ComboBox_SetCurSel(m_cbComand, 0);
+		const size_t count = GetSampleCommandsSize();
+		const Command* cmds = GetSampleCommands();
+		for (size_t i = 0; i < count; i++)
+			ComboBox_AddString(m_cbComand, cmds[i].str);
+		ComboBox_SetCurSel(m_cbComand, 0);
+	}
+
+	// String based commands
+	{
+		m_cbStrCmd = GetDlgItem(IDC_CB_SCMD);
+
+		const size_t count = GetStringCommandsSize();
+		const StringCommand* cmds = GetStringCommands();
+		for (size_t i = 0; i < count; i++)
+			ComboBox_AddString(m_cbStrCmd, cmds[i].str);
+		ComboBox_SetCurSel(m_cbStrCmd, 0);
+	}
+
 }
 
 
@@ -119,7 +134,63 @@ LRESULT CMainDlg::OnBnClickedBtnFind2(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 	const Command* cmds = ::GetSampleCommands();
 	const DWORD cmd2send = cmds[idx].cmd;
 
+	Message(L"@@<Send CMD_XX command@@>");
 	::SendMessage(hWnd, WM_COMMAND, cmd2send, 0);
+	Message(L"  %s is sent.", cmds[idx].str);
+
+	return 0;
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         string based combobox changed. 
+///         
+/// @date   Mon Nov 13 15:56:02 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
+LRESULT CMainDlg::OnCbnSelchangeCbScmd(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	DWORD idx = ComboBox_GetCurSel(m_cbStrCmd);
+	const StringCommand* cmds = ::GetStringCommands();
+	const LPCWSTR sampleParam = cmds[idx].sampleParam;
+	SetDlgItemText(IDC_EDIT_SAMPLE_PARAM, sampleParam);
+	return 0;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         Send string based command
+///         
+/// @date   Mon Nov 13 15:59:50 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
+LRESULT CMainDlg::OnBnClickedBtnFind3(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	HWND hWnd = FindBandiViewWnd();
+	if (hWnd == nullptr)
+	{
+		Message(L"Cannot find BandiView.");
+		return 0;
+	}
+
+	DWORD idx = ComboBox_GetCurSel(m_cbStrCmd);
+	const StringCommand* cmds = ::GetStringCommands();
+	const StringCommand& cmd = cmds[idx];
+
+
+	CString param;
+	GetDlgItemText(IDC_EDIT_SAMPLE_PARAM, param);
+
+
+	CString stringCommand;
+	stringCommand = cmd.str + (L" " + param);
+
+	Message(L"@@<SendStringCommand@@>");
+	DWORD ret = SendStringCommand2BandiView(hWnd, stringCommand.GetString());
+	Message(L"  [%s] is sent", stringCommand.GetString());
+	Message(L"  [%u] is returned", ret);
+
 
 	return 0;
 }

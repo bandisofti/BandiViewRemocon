@@ -28,6 +28,29 @@ const Command* GetSampleCommands()
 	return g_sampleCommands;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         string based commands
+///         
+/// @date   Mon Nov 13 15:44:16 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+StringCommand	g_stringCommands[] =
+{
+	{L"/nop", L""},									// do nothing
+	{L"/open", L"-r %HOMEPATH%\\Desktop"},			// open the folder or files			ex) /open c:\test.jpg
+};
+
+
+size_t			GetStringCommandsSize()
+{
+	return sizeof(g_stringCommands) / sizeof(g_stringCommands[0]);
+}
+const StringCommand*  GetStringCommands()
+{
+	return g_stringCommands;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ///         
@@ -41,4 +64,21 @@ HWND	FindBandiViewWnd()
 	return hWnd;
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         Send string command to BandiView using WM_COPYDATA
+///         
+/// @date   Mon Nov 13 16:01:39 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
+DWORD	SendStringCommand2BandiView(HWND hWnd, LPCWSTR commandString)
+{
+	COPYDATASTRUCT cds;
+	cds.dwData = WMCOPYDATAMAGIC;
+	cds.cbData = (lstrlen(commandString) + 1) * sizeof(WCHAR);
+	cds.lpData = (PVOID)commandString;
+	const DWORD ret = SendMessage(hWnd, WM_COPYDATA, 0, (LPARAM)&cds);
+	return ret;
+}
 
