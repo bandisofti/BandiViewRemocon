@@ -19,6 +19,7 @@ BEGIN_MSG_MAP(CMainDlg)
 	COMMAND_HANDLER(IDC_BTN_FIND2, BN_CLICKED, OnBnClickedBtnFind2)
 	COMMAND_HANDLER(IDC_CB_SCMD, CBN_SELCHANGE, OnCbnSelchangeCbScmd)
 	COMMAND_HANDLER(IDC_BTN_FIND3, BN_CLICKED, OnBnClickedBtnFind3)
+	COMMAND_HANDLER(IDC_BTN_LAUNCH_AND_MOVE2, BN_CLICKED, OnBnClickedBtnLaunchAndMove2)
 END_MSG_MAP()
 
 
@@ -44,5 +45,6 @@ public:
 	LRESULT OnBnClickedBtnFind2(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnCbnSelchangeCbScmd(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnBnClickedBtnFind3(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnBnClickedBtnLaunchAndMove2(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 };
 

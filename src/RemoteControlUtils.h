@@ -1,6 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
 /// 
-/// Utils for the Remote control
+/// Util functions for the Remote control
 /// 
 /// @author   park
 /// @date     Mon Nov 13 15:12:18 2023
@@ -60,4 +60,11 @@ HWND	FindBandiViewWnd();
 
 
 DWORD	SendStringCommand2BandiView(HWND hWnd, LPCWSTR commandString);
+
+
+bool	LaunchBandiView(CString param);
+
+
+
+
 

@@ -88,3 +88,62 @@ DWORD	SendStringCommand2BandiView(HWND hWnd, LPCWSTR commandString)
 	return ret;
 }
 
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         Get the pathname of BandiView.exe
+///         
+/// @date   Mon Dec 11 13:33:19 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define BANDIVIEW_HKLM_SUBKEY_NAME		L"Software\\BandiView\\"
+#define BANDIVIEW_KEYNAME_PROGRFOLDER	L"ProgramFolder"
+#define BANDIVIEW_EXE_NAME				L"BandiView.exe"
+CString	GetBandiViewPathname()
+{
+	CString exe;
+
+	HKEY hKey = NULL;
+	const LONG res = ::RegOpenKeyEx(HKEY_LOCAL_MACHINE, BANDIVIEW_HKLM_SUBKEY_NAME, 0, KEY_READ | KEY_WOW64_64KEY, &hKey);
+	if (res == ERROR_SUCCESS)
+	{
+		DWORD dwBufSize = 0;
+		DWORD dwType = REG_NONE;
+		// Get the buffer size of
+		//	HKEY_LOCAL_MACHINE\SOFTWARE\BandiView\ProgramFolder
+		LONG lResult = RegQueryValueEx(hKey, BANDIVIEW_KEYNAME_PROGRFOLDER, NULL, &dwType, nullptr, &dwBufSize);
+		if (lResult == ERROR_SUCCESS && dwBufSize && dwType == REG_SZ)
+		{
+			LPWSTR buf = exe.GetBuffer(dwBufSize + sizeof(WCHAR));
+			lResult = RegQueryValueEx(hKey, BANDIVIEW_KEYNAME_PROGRFOLDER, NULL, &dwType, (LPBYTE)buf, &dwBufSize);
+			if (lResult == ERROR_SUCCESS)
+			{
+				exe.ReleaseBuffer();
+				exe = exe + BANDIVIEW_EXE_NAME;
+			}
+			else
+				exe.Empty();
+		}
+		RegCloseKey(hKey);
+	}
+
+	return exe;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         Launch BandiView with parameter
+///         
+/// @date   Mon Dec 11 13:33:31 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
+bool LaunchBandiView(CString param)
+{
+	CString exe = ::GetBandiViewPathname();
+	if (exe.IsEmpty())
+		return false;
+	::ShellExecute(NULL, L"Open", exe, param, NULL, SW_SHOW);
+	return true;
+}
+

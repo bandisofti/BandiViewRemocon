@@ -2,6 +2,7 @@
 #include "resource.h"
 #include "MainDlg.h"
 #include "RemoteControlUtils.h"
+#include "Global.h"
 
 CMainDlg::CMainDlg(void) noexcept
 {
@@ -36,6 +37,8 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	InitSampleCommands();
 
 	Message(L"RemoteControl started.");
+
+	//PostMessage(WM_COMMAND, IDC_BTN_LAUNCH_AND_MOVE2);
 
 	return TRUE;
 }
@@ -81,6 +84,12 @@ void CMainDlg::InitSampleCommands()
 			ComboBox_AddString(m_cbStrCmd, cmds[i].str);
 		ComboBox_SetCurSel(m_cbStrCmd, 0);
 	}
+
+
+	{
+		SetDlgItemText(IDC_EDIT_PARAM_TO_LAUNCH, L"/open c:\\temp\\");
+	}
+
 
 }
 
@@ -195,3 +204,46 @@ LRESULT CMainDlg::OnBnClickedBtnFind3(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 	return 0;
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         Launch BandiView and move to the page
+///         
+/// @date   Mon Dec 11 13:18:50 2023
+////////////////////////////////////////////////////////////////////////////////////////////////////
+LRESULT CMainDlg::OnBnClickedBtnLaunchAndMove2(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	// launchParam == L"/open c:/temp/
+	CString launchParam;
+	GetDlgItemText(IDC_EDIT_PARAM_TO_LAUNCH, launchParam);
+
+	// Launch BandiView with parameters
+	LaunchBandiView(launchParam);
+
+	// Waiting...
+	HWND hWndBandiView = nullptr;
+	int count = 0;
+	do
+	{ 
+		if (++count > 100)
+		{
+			Message(L"Error. Timeout.");
+			return 0;
+		}
+
+		Sleep(10);
+		hWndBandiView = FindBandiViewWnd();
+	} while (hWndBandiView==nullptr);
+
+
+	// Send "/move2page 10"
+	CString stringCommand = L"/move2page 10";
+	Message(L"@@<SendStringCommand@@>");
+	DWORD ret = SendStringCommand2BandiView(hWndBandiView, stringCommand.GetString());
+	Message(L"  [%s] is sent", stringCommand.GetString());
+	Message(L"  [%u] is returned", ret);
+
+
+	return 0;
+}

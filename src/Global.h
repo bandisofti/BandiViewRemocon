@@ -12,7 +12,3 @@
 
 #pragma once
 
-
-
-void Global();
-
