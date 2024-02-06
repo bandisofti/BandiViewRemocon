@@ -2,6 +2,11 @@
 #include "resource.h"
 #include "utils/XRichEditCtrl2.h"
 
+
+#define TIMER_UPDATE_STATE		1
+
+
+
 class CMainDlg : public CDialogImpl <CMainDlg, CWindow>
 {
 public:
@@ -20,6 +25,7 @@ BEGIN_MSG_MAP(CMainDlg)
 	COMMAND_HANDLER(IDC_CB_SCMD, CBN_SELCHANGE, OnCbnSelchangeCbScmd)
 	COMMAND_HANDLER(IDC_BTN_FIND3, BN_CLICKED, OnBnClickedBtnFind3)
 	COMMAND_HANDLER(IDC_BTN_LAUNCH_AND_MOVE2, BN_CLICKED, OnBnClickedBtnLaunchAndMove2)
+	MESSAGE_HANDLER(WM_TIMER, OnTimer)
 END_MSG_MAP()
 
 
@@ -30,6 +36,9 @@ private :
 	HWND			m_cbComand = nullptr;		// CMD_XX 
 	HWND			m_cbStrCmd = nullptr;		// string base commands
 
+
+private :
+	void			UpdateState();
 
 private :
 	HICON	m_hIcon;
@@ -46,5 +55,8 @@ public:
 	LRESULT OnCbnSelchangeCbScmd(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnBnClickedBtnFind3(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnBnClickedBtnLaunchAndMove2(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnTimer(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
 };
+
+
 

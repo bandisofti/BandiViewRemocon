@@ -272,6 +272,7 @@
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="RemoteControlUtils.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="state\BandiViewState.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="utils\XRichEditCtrl2.h" />
   </ItemGroup>
@@ -280,6 +281,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainDlg.cpp" />
     <ClCompile Include="RemoteControlUtils.cpp" />
+    <ClCompile Include="state\BandiViewState.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

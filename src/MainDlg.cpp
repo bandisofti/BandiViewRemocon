@@ -3,6 +3,7 @@
 #include "MainDlg.h"
 #include "RemoteControlUtils.h"
 #include "Global.h"
+#include "state/BandiViewState.h"
 
 CMainDlg::CMainDlg(void) noexcept
 {
@@ -39,6 +40,8 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 	Message(L"RemoteControl started.");
 
 	//PostMessage(WM_COMMAND, IDC_BTN_LAUNCH_AND_MOVE2);
+
+	SetTimer(TIMER_UPDATE_STATE, 1000);
 
 	return TRUE;
 }
@@ -247,3 +250,45 @@ LRESULT CMainDlg::OnBnClickedBtnLaunchAndMove2(WORD /*wNotifyCode*/, WORD /*wID*
 
 	return 0;
 }
+
+
+LRESULT CMainDlg::OnTimer(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+{
+	if (wParam == TIMER_UPDATE_STATE)
+	{
+		UpdateState();
+	}
+	return 0;
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         Update current state of BandiView
+///         
+/// @date   Tue Feb  6 14:16:54 2024
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainDlg::UpdateState()
+{
+	SBandiViewState* state = new SBandiViewState();
+	if (RetriveCurrentBandiViewState(*state) == false)
+	{
+		SetDlgItemText(IDC_STATIC_STATE, L"No BandiView or Error");
+		delete state;
+		return;
+	}
+
+	SetDlgItemText(IDC_STATIC_STATE, L"Okay");
+
+	// current file pathname
+	SetDlgItemText(IDC_STATIC_FILE_PATH_NAME2, state->curFilePathName);
+
+	// PAGE
+	CString page;
+	page.Format(L"%d/%d", state->page_cur, state->page_tot);
+	SetDlgItemText(IDC_STATIC_PAGE, page);
+
+	delete state;
+}
+

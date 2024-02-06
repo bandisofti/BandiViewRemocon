@@ -14,6 +14,9 @@
     <Filter Include="utils">
       <UniqueIdentifier>{86ad5d6d-1f3e-46ad-8de4-edcd443484e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="state">
+      <UniqueIdentifier>{d5735f56-cdc6-41a8-9a99-bada745e8cac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -34,6 +37,9 @@
     <ClInclude Include="Global.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="state\BandiViewState.h">
+      <Filter>state</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -53,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="Global.cpp">
       <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="state\BandiViewState.cpp">
+      <Filter>state</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
