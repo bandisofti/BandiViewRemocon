@@ -14,8 +14,9 @@
 
 
 
-#define APP_CLASS_NAME		L"BandiViewClass"
-#define WMCOPYDATAMAGIC		0x20220905
+#define APP_CLASS_NAME				L"BandiViewClass"
+#define BANDIVIEW_INFO_WND_CLASS	L"BANDIVIEW_INFO_WND_CLASS"
+#define WMCOPYDATAMAGIC				0x20220905
 
 
 
@@ -58,6 +59,7 @@ const StringCommand*	GetStringCommands();
 
 HWND	FindBandiViewWnd();
 
+HWND	FindBandiInfoWnd();
 
 DWORD	SendStringCommand2BandiView(HWND hWnd, LPCWSTR commandString);
 

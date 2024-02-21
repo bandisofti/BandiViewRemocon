@@ -39,6 +39,7 @@ private :
 
 private :
 	void			UpdateState();
+	void			UpdateInfoWndState();
 
 private :
 	HICON	m_hIcon;

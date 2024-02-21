@@ -257,6 +257,7 @@ LRESULT CMainDlg::OnTimer(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL&
 	if (wParam == TIMER_UPDATE_STATE)
 	{
 		UpdateState();
+		UpdateInfoWndState();
 	}
 	return 0;
 }
@@ -289,6 +290,29 @@ void CMainDlg::UpdateState()
 	page.Format(L"%d/%d", state->page_cur, state->page_tot);
 	SetDlgItemText(IDC_STATIC_PAGE, page);
 
+
+
 	delete state;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         Check current state of BandiView using BANDIVIEW_INFO_WND_CLASS
+///         
+/// @date   Wed Feb 21 14:30:29 2024
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void CMainDlg::UpdateInfoWndState()
+{
+	CString text = L"n/a";
+
+	HWND infoWnd = FindBandiInfoWnd();
+	if (infoWnd)
+	{
+		WCHAR buf[4096];
+		::GetWindowText(infoWnd, buf, 4096);
+		text = buf;
+	}
+
+	SetDlgItemText(IDC_STATIC_INFO_WND, text);
 }
 

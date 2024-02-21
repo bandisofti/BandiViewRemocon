@@ -22,8 +22,9 @@
 #define IDC_EDIT_PARAM_TO_LAUNCH        1008
 #define IDC_STATIC_STATE                1009
 #define IDC_STATIC_FILE_PATH_NAME2      1010
-#define IDC_STATIC_FILE_PATH_NAME3      1011
 #define IDC_STATIC_PAGE                 1011
+#define IDC_STATIC_FILE_PATH_NAME3      1012
+#define IDC_STATIC_INFO_WND             1012
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
