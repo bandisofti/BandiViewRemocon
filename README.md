@@ -19,7 +19,7 @@
 
    1. Find the window handle of BandiView
    2. Send string command to BandiView (See SendStringCommand2BandiView())
-   3. You can send any of the command line parameters listed here. [https://www.bandisoft.com/bandizip/help/parameter/](https://www.bandisoft.com/bandizip/help/parameter/)
+   3. You can send any of the command line parameters listed here. [[https://www.bandisoft.com/bandizip/help/parameter/]([https://www.bandisoft.com/bandiview/help/command-line-parameter/](https://www.bandisoft.com/bandiview/help/command-line-parameter/))](https://www.bandisoft.com/bandizip/help/parameter/)
 
    * For example
      * /open c:/image.jpg
