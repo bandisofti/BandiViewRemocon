@@ -44,7 +44,7 @@
    2. Get the title of the window
 
    * The window text contains this information.
-     * `<current path name of the image file>`*`<current page num>*<total page num>*`
-     * For example: `c:\temp\test.zip|abc.jpg*10*100*`
+     * `<current path name of the image file>`*``<second filepathname if exists>`*`<current page num>*<total page num>*`
+     * For example: `c:\temp\test.zip|abc.jpg**10*100*`
 
 <img src="screenshot/screenshot.png" alt="screenshot" />
