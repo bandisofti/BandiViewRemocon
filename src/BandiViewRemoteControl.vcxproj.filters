@@ -40,6 +40,9 @@
     <ClInclude Include="state\BandiViewState.h">
       <Filter>state</Filter>
     </ClInclude>
+    <ClInclude Include="CommandsReader.h">
+      <Filter>main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -62,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="state\BandiViewState.cpp">
       <Filter>state</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandsReader.cpp">
+      <Filter>main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@
 #include "RemoteControlUtils.h"
 #include "Global.h"
 #include "state/BandiViewState.h"
+#include "CommandsReader.h"
 
 CMainDlg::CMainDlg(void) noexcept
 {
@@ -66,16 +67,36 @@ LRESULT CMainDlg::OnBnClickedCancel(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*h
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void CMainDlg::InitSampleCommands()
 {
-	// CMD_XX commands
-	{
-		m_cbComand = GetDlgItem(IDC_CB_CMD);
+	CommandsReader cmdReader;
 
+	m_cbComand = GetDlgItem(IDC_CB_CMD);
+
+
+	// Read all commands from the resource file.
+	if (cmdReader.ReadCommands(L"C:/Program Files/BandiView/data/resource.data"))
+	{
+		const size_t count = cmdReader.CommandsSize();
+
+		for (size_t i = 0; i < count; i++)
+		{
+			const CmdInfo& ci = cmdReader.GetCmdInfo(i);
+			ComboBox_AddString(m_cbComand, CString(ci.cmdStr.c_str()));
+			ComboBox_SetItemData(m_cbComand, i, ci.cmd);
+		}
+	}
+	else
+	{
+		// predefined sample CMD_XX commands
 		const size_t count = GetSampleCommandsSize();
 		const Command* cmds = GetSampleCommands();
 		for (size_t i = 0; i < count; i++)
+		{
 			ComboBox_AddString(m_cbComand, cmds[i].str);
-		ComboBox_SetCurSel(m_cbComand, 0);
+			ComboBox_SetItemData(m_cbComand, i, cmds[i].cmd);
+		}
 	}
+
+	ComboBox_SetCurSel(m_cbComand, 0);
 
 	// String based commands
 	{
@@ -142,13 +163,16 @@ LRESULT CMainDlg::OnBnClickedBtnFind2(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 		return 0;
 	}
 
-	DWORD idx = ComboBox_GetCurSel(m_cbComand);
-	const Command* cmds = ::GetSampleCommands();
-	const DWORD cmd2send = cmds[idx].cmd;
+	const DWORD idx = ComboBox_GetCurSel(m_cbComand);
+	const DWORD cmd2send = (DWORD)ComboBox_GetItemData(m_cbComand, idx);
+	ASSERT(cmd2send);
 
-	Message(L"@@<Send CMD_XX command@@>");
+	//const Command* cmds = ::GetSampleCommands();
+	//const DWORD cmd2send = cmds[idx].cmd;
+
+	Message(L"@@<Sending CMD_XX command@@>");
 	::SendMessage(hWnd, WM_COMMAND, cmd2send, 0);
-	Message(L"  %s is sent.", cmds[idx].str);
+	Message(L"  %u is sent.", cmd2send);
 
 	return 0;
 }

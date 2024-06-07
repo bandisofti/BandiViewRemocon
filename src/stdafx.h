@@ -24,6 +24,12 @@ extern CComModule _Module;
 #include <atltime.h>
 #include <string>
 #include <memory>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <algorithm>
+
 
 // manifest
 #if defined _M_IX86
