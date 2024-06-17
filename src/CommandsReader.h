@@ -19,6 +19,8 @@ struct CmdInfo
 	int			cmd = 0;
 };
 
+std::wstring	GetBandiviewInstalledPath();
+
 
 class CommandsReader
 {

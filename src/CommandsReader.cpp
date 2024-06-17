@@ -2,6 +2,35 @@
 #include "CommandsReader.h"
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+///         
+///         Find the installed dir of BandiView
+///         
+/// @date   Mon Jun 17 13:44:25 2024
+////////////////////////////////////////////////////////////////////////////////////////////////////
+std::wstring GetBandiviewInstalledPath()
+{
+	std::wstring ret = L"C:/Program Files/BandiView/";
+
+	LPCWSTR	subKey = L"Software\\BandiView\\";
+	HKEY hKey = nullptr;
+
+	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, subKey, 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+	{
+		WCHAR buf[MAX_PATH] = { 0, };
+		DWORD bufSize = MAX_PATH;
+
+		if (RegQueryValueEx(hKey, L"ProgramFolder", NULL, NULL, (LPBYTE)buf, &bufSize) == ERROR_SUCCESS) 
+		{
+			ret = buf;
+		}
+		RegCloseKey(hKey);
+	}
+
+	return ret;
+}
+
+
 static bool compareCmd(const CmdInfo& a, const CmdInfo& b)
 {
 	return a.cmdStr < b.cmdStr;

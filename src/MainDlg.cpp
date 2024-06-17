@@ -73,7 +73,7 @@ void CMainDlg::InitSampleCommands()
 
 
 	// Read all commands from the resource file.
-	if (cmdReader.ReadCommands(L"C:/Program Files/BandiView/data/resource.data"))
+	if (cmdReader.ReadCommands(GetBandiviewInstalledPath() + L"data\\resource.data"))
 	{
 		const size_t count = cmdReader.CommandsSize();
 
